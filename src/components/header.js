@@ -22,6 +22,7 @@ text-decoration: none;
 
 const Header = () => (
   <header css={css`
+    margin-top: 0;
     background: #eee;
     border-bottom: 1px solid #ddd;
     display: flex;

@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 import styled from '@emotion/styled';
+import BackgroundImage from 'gatsby-background-image';
 
-const ImageBackground = styled('div')`
+const ImageBackground = styled(BackgroundImage)`
     background-image: url('/images/tom-hermans-peanuts.jpg');
     background-size: cover;
     height: 20vh;
-
-    + * {
+    * + * {
        margin-top: 0; 
     }
 `
@@ -40,8 +40,20 @@ const TextBox = styled('div')`
 
 const Hero = () => {
 
+    const { image } = useStaticQuery(graphql`
+        query {
+            image: file(relativePath: { eq: "tom-hermans-peanuts.jpg"}) {
+                sharp: childImageSharp {
+                    fluid {
+                        ...GatsbyImageSharpFluid_withWebp
+                    }
+                }
+            }
+        }
+    `);
+
     return (
-        <ImageBackground>
+        <ImageBackground Tag="section" fluid={image.sharp.fluid}>
             <TextBox>
                 <h1>Gatsby &hearts; 101</h1>
                 <p>
